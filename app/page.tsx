@@ -8,7 +8,7 @@ export default function Home() {
         <div className="mb-5 text-2xl font-medium w-full flex justify-center content-center items-center text-center">Test formula&nbsp; <div className="text-blue-500">pry.co</div></div>
         <div className="text-center mb-4">
           <div className="text-yellow-600 ">INFO</div>
-          Works: &quot;+&quot;, &quot;-&quot;, &quot;*&quot;, &quot;/&quot; and change TAG
+          Works: &quot;+&quot;, &quot;-&quot;, &quot;*&quot;, &quot;/&quot;, &quot;^&quot; and change TAG
         </div>
         <CustomInput name="Revenue Churn" endpoint={endpointRevenueChurn} />
         <CustomInput name="New Formula" endpoint={endpointNewFormula} />
