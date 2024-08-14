@@ -5,12 +5,12 @@
     "name": "Robert",
     "lastName": "Jones",
     "aplicantDate": "2024-08-14",
-    "loanAmount": 2000,
+    "loanAmount": 3000,
     "status": "Awaiting signature",
     "expiration": "2025-08-14",
     "SS": "232d2",
     "dateOfBirth": "2002-01-30",
-    "income": "20000"
+    "income": "25000"
   },
   {
     "aplicantPhone": "+4405524863",

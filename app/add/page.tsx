@@ -4,7 +4,7 @@ import { Suspense, useState, useEffect, ChangeEvent } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Navbar } from '../components/Navbar';
 import Image from 'next/image';
-import preloader from "@/app/assets/svgs/preloader.gif"
+//import preloader from "@/app/assets/svgs/preloader.gif"
 
 function ActualAddPage() {
   const router = useRouter();
@@ -98,7 +98,7 @@ function ActualAddPage() {
       <section className="w-full bg-white flex flex-col justify-start items-center min-h-screen py-40">
         {pageBusy && (
           <div className='opacity-45  z-10 absolute left-0 right-0 top-0 bottom-0 flex justify-center items-center'>
-            <Image className='w-full h-full object-cover' src={preloader} alt="loading" />
+            {/* <Image className='w-full h-full object-cover' src={preloader} alt="loading" /> */}
           </div>
         )}
         <div className="container px-4">
