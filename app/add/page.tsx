@@ -27,16 +27,30 @@ export default function Add() {
   const [message, setMessage] = useState('');
   const [currentId, setCurrentId] = useState('');
 
+
+
   const searchParams = useSearchParams();
-  const id = searchParams.get('id');
+  //const id = searchParams.get('id');
 
   useEffect(() => {
-    if (id) {
-      setCurrentId(id)
-      // Здесь можно загрузить текущие данные для этого ID, если необходимо
-      fetchRecordById(id);
+    if (typeof window !== "undefined") {
+      const id = searchParams.get('id');
+      if (id) {
+        setCurrentId(id);
+        fetchRecordById(id);
+      }
     }
-  }, [id]);
+  }, [searchParams]);
+
+
+
+  // useEffect(() => {
+  //   if (id) {
+  //     setCurrentId(id)
+  //     // Здесь можно загрузить текущие данные для этого ID, если необходимо
+  //     fetchRecordById(id);
+  //   }
+  // }, [id]);
 
   useEffect(() => {
     // Вычисляем дату 18 лет назад
@@ -61,16 +75,20 @@ export default function Add() {
   };
 
   const fetchRecordById = async (id: string) => {
-    const response = await fetch('/api/get-records');
-    const data = await response.json();
-    const record = data.find((item: any) => item.id === id);
-
-    if (record) {
-      setName(record.name || '');
-      setLastName(record.lastName || '');
-      setSS(record.SS || '');
-      setDateOfBirth(record.dateOfBirth || '');
-      setIncome(record.income || '');
+    try {
+      const response = await fetch('/api/get-records');
+      const data = await response.json();
+      const record = data.find((item: any) => item.id === id);
+  
+      if (record) {
+        setName(record.name || '');
+        setLastName(record.lastName || '');
+        setSS(record.SS || '');
+        setDateOfBirth(record.dateOfBirth || '');
+        setIncome(record.income || '');
+      }
+    } catch (error) {
+      console.error('Error fetching record:', error);
     }
   };
 
@@ -86,7 +104,7 @@ export default function Add() {
 
 
   const handleUpdateRecord = async () => {
-    if (!id) {
+    if (!currentId) {
       setMessage('No ID provided');
       return;
     }
@@ -97,7 +115,7 @@ export default function Add() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
+        id:currentId,
         name,
         lastName,
         SS,
