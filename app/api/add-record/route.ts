@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const { aplicantId, aplicantPhone } = await request.json();
     console.log("in POST")
     // Путь к JSON-файлу
-    const filePath = path.join(process.cwd(), 'app', '/data', 'bd.json');
+    const filePath = path.join(process.cwd(), 'app', 'data', 'bd.json');
     const fileData = fs.readFileSync(filePath, 'utf-8');
     const data = JSON.parse(fileData);
     console.log("read file", data)
