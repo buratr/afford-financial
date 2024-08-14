@@ -30,6 +30,46 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .nav-link{
+    @apply text-black hover:text-hover
+  }
+
+  .tab-btn{
+    @apply bg-neutral-100 text-black text-sm font-bold px-16 py-3 rounded-t-xl max-md:px-4
+  }
+
+  .tab-btn-active{
+    @apply bg-neutral-300 text-black text-sm font-bold px-16 py-3 rounded-t-xl max-md:px-4 
+  }
+
+  .tabl-text{
+    @apply text-xs text-black font-semibold
+  }
+
+  .tabl-grid{
+    @apply py-2 px-8 rounded-3xl grid gap-4 grid-flow-col items-center auto-cols-fr
+  }
+
+  .input-violet{
+    @apply min-w-56 w-full placeholder-violetlg shadow appearance-none border-2 border-violetlg hover:border-violet rounded-2xl py-2 px-3 text-violet leading-tight focus:outline-none
+  }
+
+  .input-gray{
+    @apply col-span-2 w-full px-3 bg-gray-200 border-gray-300 border hover:border hover:border-gray-500 rounded-md h-8 focus:outline-none focus:border-gray-500
+  }
+
+  .button-violet{
+    @apply min-w-56 w-full text-white bg-violet shadow appearance-none border-2 border-violet hover:border-violetlg rounded-2xl py-2 px-3  leading-tight focus:outline-none
+  }
+
+  .button-green{
+    @apply hover:bg-opacity-75 w-full text-[#424e5c] bg-hover shadow appearance-none rounded-md py-1 px-7  leading-tight
+  }
+
+  .add-form-grid{
+    @apply grid grid-flow-col grid-cols-3 items-center gap-3
+  }
 }
 
 @keyframes blink {
@@ -44,3 +84,10 @@ body {
 .blink {
   animation: blink 1.5s infinite;
 }
+
+/* .container{
+  width: 92vw;
+  max-width: 1650px;
+  margin-left: auto;
+  margin-right: auto;
+} */

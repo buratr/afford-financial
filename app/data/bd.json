@@ -1,0 +1,28 @@
+[
+  {
+    "aplicantPhone": "2313",
+    "id": "rq5y6huf8",
+    "name": "Robert",
+    "lastName": "Jones",
+    "aplicantDate": "2024-08-14",
+    "loanAmount": 2000,
+    "status": "Awaiting signature",
+    "expiration": "2025-08-14",
+    "SS": "232d2",
+    "dateOfBirth": "2002-01-30",
+    "income": "20000"
+  },
+  {
+    "aplicantPhone": "+4405524863",
+    "id": "exr9dzq8t",
+    "name": "Oliver",
+    "lastName": "Arth",
+    "SS": "4452262462",
+    "dateOfBirth": "1984-07-18",
+    "income": "34000",
+    "aplicantDate": "2024-08-14",
+    "loanAmount": 3000,
+    "status": "Awaiting signature",
+    "expiration": "2025-08-14"
+  }
+]

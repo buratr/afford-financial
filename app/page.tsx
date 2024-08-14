@@ -1,19 +1,47 @@
-import CustomInput from "./components/CustomInput";
-import {endpointRevenueChurn, endpointNewFormula} from "./lib/endpoints"
+"use client";
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
+import { Navbar } from "./components/Navbar";
+import { Providerportal } from "./components/Providerportal";
 
 export default function Home() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = Cookies.get('admin-auth-token');
+      setToken(token);
+      if (!token) {
+        router.push('/login');
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (loading) {
+    // Показываем индикатор загрузки или ничего не отображаем
+    return <main>
+            <Navbar/>
+            <section className="w-full bg-white flex flex-col justify-start items-center min-h-screen py-8">
+              <div className="container px-4">
+                <div className="w-full pt-32">
+                  <p>Loading...</p>
+                </div>
+              </div>
+            </section>   
+        </main>;
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="w-full flex flex-col justify-start items-center min-h-screen">
-        <div className="mb-5 text-2xl font-medium w-full flex justify-center content-center items-center text-center">Test formula&nbsp; <div className="text-blue-500">pry.co</div></div>
-        <div className="text-center mb-4">
-          <div className="text-yellow-600 ">INFO</div>
-          Works: &quot;+&quot;, &quot;-&quot;, &quot;*&quot;, &quot;/&quot;, &quot;^&quot; and change TAG
-        </div>
-        <CustomInput name="Revenue Churn" endpoint={endpointRevenueChurn} />
-        <CustomInput name="New Formula" endpoint={endpointNewFormula} />
-      </div>
+    <main>
+      {token && <div><Navbar/><Providerportal/></div>}
     </main>
   );
 }
-

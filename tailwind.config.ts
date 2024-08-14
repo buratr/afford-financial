@@ -8,6 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        hover: '#bfd72d', 
+        violet: '#4c0a85',
+        violetlg: '#9880b7',
+        green: '#2a6438',   
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
