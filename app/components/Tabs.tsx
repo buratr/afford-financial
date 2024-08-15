@@ -3,6 +3,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import Button from './Button';
 
+
 interface InputProps {
   type?: string;
   label?: string;
@@ -27,8 +28,14 @@ const Tabs: FC<InputProps> = () => {
 
     useEffect(() => {
       const fetchRecords = async () => {
-        const response = await fetch('/api/get-records');
+        const response = await fetch('/api/get-records', {
+          method: 'GET',
+          headers: {
+            'Cache-Control': 'no-cache',
+          },
+        });
         const data = await response.json();
+       
         setRecords(data);
       };
   
@@ -64,13 +71,13 @@ const Tabs: FC<InputProps> = () => {
                     <div className='tabl-text'>Expiration</div>
                     <div className='w-20'></div>
                 </div>
-                {records.map((record, index) => (
+                {records && records.map((record, index) => (
                  <div key={index} className='tabl-grid bg-slate-100'>
-                    <div className='tabl-text'>{record.name} {record.lastName}</div>
-                    <div className='tabl-text'>{record.aplicantDate?record.aplicantDate.split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
-                    <div className='tabl-text'>${record.loanAmount}</div>
+                    <div className='tabl-text'>{record.name} {record.last_name}</div>
+                    <div className='tabl-text'>{record.aplicant_date?record.aplicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
+                    <div className='tabl-text'>${record.loan_amount}</div>
                     <div className='tabl-text'>{record.status}</div>
-                    <div className='tabl-text'>{record.expiration?record.expiration.split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
+                    <div className='tabl-text'>{record.expiration?record.expiration.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
                     <div className='tabl-text'>
                         <Button text="Re-send"/>
                     </div>

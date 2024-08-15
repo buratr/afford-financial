@@ -1,61 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { put, list } from '@vercel/blob';
+import { sql } from '@vercel/postgres';
 
-const BLOB_NAME = 'https://r2hzvabitgjqcbrp.public.blob.vercel-storage.com/bd.json';
-
-export async function POST(request: NextRequest) {
+export async function PUT(request: NextRequest) {
   try {
-     const { id, name, lastName, SS, dateOfBirth, income } = await request.json();
-
-    // // Получаем URL файла
-     const { blobs } = await list({ prefix: BLOB_NAME });
-     const fileUrl = blobs[0]?.url;
-
-    if (!fileUrl) {
-      return NextResponse.json({ error: 'File not found' }, { status: 404 });
-    }
-
-    // Получаем текущие данные из Blob
-    const response = await fetch(fileUrl);
-    const text = await response.text();
-    const data = JSON.parse(text);
-
+    const { id, name, lastName, SS, dateOfBirth, income } = await request.json();
+    
     const currentDate = new Date();
     const aplicantDate = currentDate.toISOString().split('T')[0];
-    const loanAmount = Math.round(((income/100)*10) / 1000) * 1000;
-    
-    let expiration;
-    currentDate.setFullYear(currentDate.getFullYear() + 1);
+    const loanAmount = Math.round(((income/100)*10)  / 1000) * 1000 
+    let expiration
+    currentDate.setFullYear(currentDate.getFullYear() +1);
     expiration = currentDate.toISOString().split('T')[0];
 
-    // Поиск записи по id
-    const recordIndex = data.findIndex((record: any) => record.id === id);
-
-    if (recordIndex === -1) {
-      return NextResponse.json({ error: 'Record not found' }, { status: 404 });
-    }
-
-    // Обновление записи
-    data[recordIndex] = {
-      ...data[recordIndex],
-      name,
-      lastName,
-      SS,
-      dateOfBirth,
-      income,
-      aplicantDate,
-      loanAmount,
-      status: "Awaiting signature",
-      expiration,
-    };
-
-    console.log(data);
-
-    //Запись обновленных данных обратно в Blob
-    await put(BLOB_NAME, JSON.stringify(data, null, 2), {
-      access: 'public',
-      contentType: 'application/json',
-    });
+    // Обновляем запись в таблице по ID
+    const result = await sql`
+      UPDATE records 
+      SET aplicant_date = ${aplicantDate}, name = ${name}, last_name = ${lastName}, ss = ${SS}, date_of_birth = ${dateOfBirth}, income = ${income}, loan_amount = ${loanAmount}, status = 'Awaiting signature', expiration = ${expiration}
+      WHERE aplicant_id = ${id} ;
+    `;
 
     return NextResponse.json({ message: 'Record updated successfully' }, { status: 200 });
   } catch (error) {
@@ -63,6 +25,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to update record' }, { status: 500 });
   }
 }
+
+
+
+
 
 // import { NextRequest, NextResponse } from 'next/server';
 // import fs from 'fs';

@@ -51,14 +51,14 @@ function ActualAddPage() {
   const fetchRecordById = async (id: string) => {
     const response = await fetch('/api/get-records');
     const data = await response.json();
-    const record = data.find((item: any) => item.id === id);
+    const record = data.find((item: any) => item.aplicant_id === id);
 
     if (record) {
-      setName(record.name || '');
-      setLastName(record.lastName || '');
-      setSS(record.SS || '');
-      setDateOfBirth(record.dateOfBirth || '');
-      setIncome(record.income || '');
+      setName(record?.name || '');
+      setLastName(record?.last_name || '');
+      setSS(record?.ss || '');
+      setDateOfBirth(record?.date_of_birth || '');
+      setIncome(record?.income || '');
     }
   };
 
@@ -69,7 +69,7 @@ function ActualAddPage() {
     }
     setPageBusy(true);
     const response = await fetch('/api/update-record', {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
