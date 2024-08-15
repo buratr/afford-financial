@@ -40,7 +40,7 @@ export const Navbar = ()=>{
         let menuClasses = [];
         if(isOpen){
             menuClasses = [
-                "block", "absolute", "grid", "gap-10", "grid-flow-col", "auto-cols-max", "bg-white","left-0", "top-20", "w-full", "p-4", "max-md:grid-flow-row", "max-md:shadow-2xl", "md:static", "md:p-0", "justify-center","justify-items-center"
+                "block", "absolute", "grid", "gap-10", "grid-flow-col", "auto-cols-max", "bg-white","left-0", "top-20", "w-full", "p-4", "pb-8", "z-10","max-md:grid-flow-row", "max-md:shadow-2xl", "md:static", "md:p-0", "justify-center","justify-items-center"
             ]           
         }else{
             menuClasses = [
@@ -76,7 +76,7 @@ export const Navbar = ()=>{
       };
     return(
         <nav className="p-4 bg-white absolute top-0 left-0 right-0">
-            <div className="container mx-auto flex justify-between items-center">
+            <div className="container mx-auto flex justify-between items-center xl:px-24">
                 <a href="/" className="block w-32"><img src="logo_hr.jpg" alt="" /></a>
                 <div className="text-lg font-medium text-violet mr-auto ml-6">
                     PROVIDER PORTAL

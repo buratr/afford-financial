@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   // `;
   // WHERE id > 0;
    //const { rows } = await sql`SELECT * FROM records WHERE id > 0;`;
-   const { rows } = await sql`SELECT * FROM records ;`;
+   const { rows } = await sql`SELECT * FROM records ORDER BY id DESC;`;
 
      //const { rows } = await sql`SELECT * FROM records WHERE aplicant_phone = '+38093252454'`
     //return NextResponse.json({ records: rows }, { status: 200 });

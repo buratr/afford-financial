@@ -30,7 +30,7 @@ export default function Home() {
     return <main>
             <Navbar/>
             <section className="w-full bg-white flex flex-col justify-start items-center min-h-screen py-8">
-              <div className="container px-4">
+              <div className="container px-4 xl:px-24">
                 <div className="w-full pt-32">
                   <p>Loading...</p>
                 </div>
@@ -41,7 +41,15 @@ export default function Home() {
 
   return (
     <main>
-      {token && <div><Navbar/><Providerportal/></div>}
+      {token && 
+        <div>
+        <Navbar/>
+          <section className="w-full bg-white flex flex-col justify-start items-center min-h-screen py-8">
+            <div className="container px-4 xl:px-24">
+              <Providerportal/>
+            </div>
+          </section>
+        </div>}
     </main>
   );
 }
