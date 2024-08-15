@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/blob": "^0.23.4",
     "axios": "^1.7.2",
     "js-cookie": "^3.0.5",
     "next": "14.2.4",

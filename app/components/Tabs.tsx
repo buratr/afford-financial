@@ -67,10 +67,10 @@ const Tabs: FC<InputProps> = () => {
                 {records.map((record, index) => (
                  <div key={index} className='tabl-grid bg-slate-100'>
                     <div className='tabl-text'>{record.name} {record.lastName}</div>
-                    <div className='tabl-text'>{record.aplicantDate.split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2))}</div>
+                    <div className='tabl-text'>{record.aplicantDate?record.aplicantDate.split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
                     <div className='tabl-text'>${record.loanAmount}</div>
                     <div className='tabl-text'>{record.status}</div>
-                    <div className='tabl-text'>{record.expiration.split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2))}</div>
+                    <div className='tabl-text'>{record.expiration?record.expiration.split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
                     <div className='tabl-text'>
                         <Button text="Re-send"/>
                     </div>

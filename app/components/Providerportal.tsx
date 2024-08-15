@@ -93,7 +93,7 @@ export const Providerportal = ()=>{
               <div className="italic text-sm text-slate-600 mb-10">
                 StudyPoint Boston invites you to apply for educational financing through Afford Financial.
                 <br />
-                Use this secure link to apply: <a className="text-blue-700 font-semibold hover:text-blue-300" href={`${currentUrl}add?id=${applicantId}`}>{currentUrl}/add?id={applicantId} </a> 
+                Use this secure link to apply: <a className="text-blue-700 font-semibold hover:text-blue-300" href={`${currentUrl}add?id=${applicantId}`}>{currentUrl}add?id={applicantId} </a> 
               </div>
               <div className="w-full flex justify-center">
                 <Buttonviolet text="Back to Dachboard" clickBtn={backToDashboard} />
