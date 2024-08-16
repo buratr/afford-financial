@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
-export async function GET(request: NextRequest, { params }: { params: { timestamp: string } }) {
+export async function POST(request: NextRequest, { params }: { params: { timestamp: string } }) {
   try {
     const timestamp = params.timestamp
     // Получаем все записи из таблицы records

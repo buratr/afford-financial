@@ -34,7 +34,7 @@ const Tabs: FC<InputProps> = () => {
       const fetchRecords = async () => {
         const response = await fetch(`/api/get-records/${timestamp}`, {
           cache: 'no-store',
-          method: 'GET',
+          method: 'POST',
           headers: {
             'Cache-Control': 'no-cache',
           },

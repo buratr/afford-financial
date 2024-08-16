@@ -49,7 +49,13 @@ function ActualAddPage() {
   };
 
   const fetchRecordById = async (id: string) => {
-    const response = await fetch(`/api/get-records/${id}`);
+    const response = await fetch(`/api/get-records/${id}`, {
+      cache: 'no-store',
+      method: 'POST',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    });
     const data = await response.json();
     const record =data.data[0]; // data.find((item: any) => item.aplicant_id === id);
     //console.log("record: ", data)
