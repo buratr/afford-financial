@@ -49,10 +49,10 @@ function ActualAddPage() {
   };
 
   const fetchRecordById = async (id: string) => {
-    const response = await fetch('/api/get-records');
+    const response = await fetch(`/api/get-records/${id}`);
     const data = await response.json();
-    const record = data.find((item: any) => item.aplicant_id === id);
-
+    const record =data.data[0]; // data.find((item: any) => item.aplicant_id === id);
+    //console.log("record: ", data)
     if (record) {
       setName(record?.name || '');
       setLastName(record?.last_name || '');
