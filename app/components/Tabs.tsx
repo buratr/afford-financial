@@ -31,7 +31,9 @@ const Tabs: FC<InputProps> = () => {
         const response = await fetch('/api/get-records', {
           method: 'GET',
           headers: {
-            'Cache-Control': 'no-cache',
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
+            'Pragma': 'no-cache',
+            'Expires': '0',
           },
         });
         const data = await response.json();
