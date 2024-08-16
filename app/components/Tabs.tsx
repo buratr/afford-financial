@@ -29,6 +29,7 @@ const Tabs: FC<InputProps> = () => {
     useEffect(() => {
       const fetchRecords = async () => {
         const response = await fetch('/api/get-records', {
+          cache: 'no-store',
           method: 'GET',
           headers: {
             'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
