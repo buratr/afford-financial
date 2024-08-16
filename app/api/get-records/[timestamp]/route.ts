@@ -13,12 +13,12 @@ export async function GET(request: NextRequest, { params }: { params: { timestam
   let data;
    const { rows } = await sql`SELECT * FROM records WHERE aplicant_id = ${timestamp};`;
    const  rows2 = await sql`SELECT * FROM records ORDER BY id DESC;`;
-   if(rows){
+   if(rows.length !== 0){
     data=rows
    }else{
-    data=rows2
+    data=rows2.rows
    }
-  //console.log(rows)
+  console.log(data)
      //const { rows } = await sql`SELECT * FROM records WHERE aplicant_phone = '+38093252454'`
     //return NextResponse.json({ records: rows }, { status: 200 });
 
