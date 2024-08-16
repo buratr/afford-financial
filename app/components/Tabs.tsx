@@ -41,7 +41,7 @@ const Tabs: FC<InputProps> = () => {
         });
         const data = await response.json();
        
-        setRecords(data);
+        setRecords(data.data);
       };
   
       fetchRecords();

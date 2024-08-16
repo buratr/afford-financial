@@ -3,6 +3,7 @@ import { sql } from '@vercel/postgres';
 
 export async function GET(request: NextRequest, { params }: { params: { timestamp: string } }) {
   try {
+    const timestamp = params.timestamp
     // Получаем все записи из таблицы records
   //   await sql`
   //   INSERT INTO records (aplicant_phone, name, last_name, ss, date_of_birth, income, loan_amount, status, expiration)
@@ -15,7 +16,7 @@ export async function GET(request: NextRequest, { params }: { params: { timestam
      //const { rows } = await sql`SELECT * FROM records WHERE aplicant_phone = '+38093252454'`
     //return NextResponse.json({ records: rows }, { status: 200 });
 
-    return NextResponse.json(rows, { status: 200 });
+    return NextResponse.json({data:rows , time:timestamp}, { status: 200 });
   } catch (error) {
     console.error('Error retrieving records:', error);
     return NextResponse.json({ error: 'Failed to retrieve records' }, { status: 500 });
