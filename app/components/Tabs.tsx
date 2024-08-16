@@ -24,17 +24,18 @@ const Tabs: FC<InputProps> = () => {
             case 3:setTabProcessed(false);setTabApproved(false);setFunded(true);break;
         }
     }
-
+    function generateId() {
+      return Math.random().toString(36).substr(2, 9);
+    }
 
     useEffect(() => {
+      let rand = generateId();
       const fetchRecords = async () => {
-        const response = await fetch('/api/get-records', {
+        const response = await fetch(`/api/get-records?get=${rand}`, {
           cache: 'no-store',
           method: 'GET',
           headers: {
-            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
-            'Pragma': 'no-cache',
-            'Expires': '0',
+            'Cache-Control': 'no-cache',
           },
         });
         const data = await response.json();
