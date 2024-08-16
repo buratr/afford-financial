@@ -30,8 +30,9 @@ const Tabs: FC<InputProps> = () => {
 
     useEffect(() => {
       let rand = generateId();
+      const timestamp = Date.now(); 
       const fetchRecords = async () => {
-        const response = await fetch(`/api/get-records?get=${rand}`, {
+        const response = await fetch(`/api/get-records/${timestamp}`, {
           cache: 'no-store',
           method: 'GET',
           headers: {
