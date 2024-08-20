@@ -6,6 +6,17 @@ import { Navbar } from '../components/Navbar';
 import Image from 'next/image';
 import preloader from "/app/assets/svgs/preloader.gif"
 
+
+function calculateMonthlyPayment(loanAmount:number, months:number, annualRate:number) {
+    // Ежемесячная процентная ставка
+    const monthlyRate = annualRate / 12 / 100;
+    
+    // Формула расчета аннуитетного платежа
+    const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+    
+    return parseFloat(monthlyPayment.toFixed(2));
+}
+
 function ActualAddPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -23,6 +34,12 @@ function ActualAddPage() {
   const [income, setIncome] = useState('');
   const [message, setMessage] = useState('');
   const [currentId, setCurrentId] = useState('');
+  const [loanAmount, setLoanAmount] = useState('');
+  const [mo12, setMo12] = useState(0);
+  const [mo36, setMo36] = useState(0);
+  const [mo60, setMo60] = useState(0);
+  const [period, setPeriod] = useState({status:false, month:0});
+  const [percent, setPercent] = useState('0');
 
   useEffect(() => {
     if (id) {
@@ -30,6 +47,12 @@ function ActualAddPage() {
       fetchRecordById(id);
     }
   }, [id]);
+
+  useEffect(() => {
+    setMo12(parseFloat((Number(loanAmount)/12).toFixed(2)))
+    setMo36(calculateMonthlyPayment(Number(loanAmount), 36, 6.99))
+    setMo60(calculateMonthlyPayment(Number(loanAmount), 60, 9.99))
+  }, [loanAmount]);
 
   useEffect(() => {
     const eighteenYearsAgo = new Date();
@@ -42,10 +65,13 @@ function ActualAddPage() {
     setDateOfBirth(event.target.value);
   };
 
-  const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
     if (/^\d*$/.test(value)) {
-      setIncome(value);
+        if(Number(value) > 10000){
+            value = "10000"
+        }
+        setLoanAmount(value);
     }
   };
 ///api/get-records/${id}
@@ -70,6 +96,11 @@ function ActualAddPage() {
       setSS(record?.ss || '');
       setDateOfBirth(record?.date_of_birth.split('T')[0] || '');
       setIncome(record?.income || '');
+      setLoanAmount(record?.loan_amount || '')
+
+      setMo12(parseFloat((Number(record?.loan_amount)/12).toFixed(2)))
+      setMo36(calculateMonthlyPayment(Number(record?.loan_amount), 36, 6.99))
+      setMo60(calculateMonthlyPayment(Number(record?.loan_amount), 60, 9.99))
     }
   };
 
@@ -79,10 +110,9 @@ function ActualAddPage() {
       return;
     }
     setPageBusy(true);
-    const loanAmount = 10000 //Math.round(((income/100)*10)  / 1000) * 1000 
-    let expiration
     const currentDate = new Date();
-    currentDate.setFullYear(currentDate.getFullYear() +1);
+    let expiration
+    currentDate.setMonth(currentDate.getMonth() + Number(period.month));
     expiration = currentDate.toISOString().split('T')[0];
     const response = await fetch('/api/update-record', {
       method: 'PUT',
@@ -91,27 +121,26 @@ function ActualAddPage() {
       },
       body: JSON.stringify({
         id,
-        name,
-        lastName,
-        studentName,
-        SS,
-        dateOfBirth,
-        income,
         loanAmount,
-        expiration,
-        status:"Awaiting signature"
+        period: period.month,
+        percent: percent,
+        expiration
       }),
     });
 
     if (response.ok) {
       setMessage('Record updated successfully');
-      router.push('/result?id='+id);
+      router.push('/');
     } else {
       setMessage('Failed to update record');
       setPageBusy(false);
     }
   };
 
+  function handleChangeMonth(month:number, percent:string){
+    setPeriod({status:true, month:month})
+    setPercent(percent)
+  }
   return (
     <main>
       <Navbar />
@@ -126,82 +155,51 @@ function ActualAddPage() {
         className='max-w-96 mx-auto flex flex-col gap-3'
         onSubmit={(e) => e.preventDefault()}>
           <div className='add-form-grid'>
-            <label className='text-sm font-semibold shrink-0 text-right' htmlFor="Name">First Name</label>
+            <label className='text-sm font-semibold shrink-0 text-right' htmlFor="Name">loanAmount</label>
             <input
               id="Name"
               className='input-gray'
               type="text"
               placeholder=""
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={loanAmount}
+              onChange={handleAmountChange}
             />
           </div>
-            
-          <div className='add-form-grid'>
-            <label className='text-sm font-semibold shrink-0 text-right' htmlFor="Last">Last Name</label>
-            <input
-              id="Last"
-              className='input-gray'
-              type="text"
-              placeholder=""
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </div>
-
-          <div className='add-form-grid'>
-            <label className='text-sm font-semibold shrink-0 text-right' htmlFor="Last">Student Name</label>
-            <input
-              id="Last"
-              className='input-gray'
-              type="text"
-              placeholder=""
-              value={studentName}
-              onChange={(e) => setStudentName(e.target.value)}
-            />
-          </div>
-
-          <div className='add-form-grid'>
-            <label className='text-sm font-semibold shrink-0 text-right' htmlFor="ss">SS #</label>
-            <input
-              id="ss"
-              className='input-gray'
-              type="text"
-              placeholder=""
-              value={SS}
-              onChange={(e) => setSS(e.target.value)}
-            />
-          </div>
-
-          <div className='add-form-grid'>
-            <label className='text-sm font-semibold shrink-0 text-right' htmlFor="dateOfBirth">DOB</label>
-            <input
-              className='input-gray'
-              type="date"
-              id="dateOfBirth"
-              value={dateOfBirth}
-              onChange={handleDateChange}
-              max={maxDate}
-            />
-
-          </div>
-          <div className='add-form-grid'>
-            <label className='text-sm font-semibold shrink-0 text-right' htmlFor="income">Annual Income</label>
-            <div className='relative col-span-2 flex '>
-              <div className='mr-4 text-slate-500 absolute right-0 left-auto top-0 bottom-0 my-auto flex justify-center items-center'>$</div>
-                <input
-                id="income"
-                className='input-gray'
-                type="text"
-                placeholder=""
-                value={income}
-                onChange={handleNumberChange}
-              />
+           
+            <div className="p-2 bg-zinc-200 rounded">
+                <label className='flex items-center'>
+                    <input className='mr-2' type="radio" name="month" value="12" onChange={()=>{handleChangeMonth(12, "0")}} />
+                    <div className='w-full flex justify-between'>
+                        <div>12 mo - no interest</div>
+                        <div>({mo12} / mo)</div>
+                    </div>
+                    
+                </label>
             </div>
-          </div>
+
+            <div className="p-2 bg-zinc-200 rounded">
+                <label className='flex items-center'>
+                    <input className='mr-2' type="radio" name="month" value="36" onChange={()=>{handleChangeMonth(36, "6.99")}}/>
+                    <div className='w-full flex justify-between'>
+                        <div>36 mo - 6.99% APR</div>
+                        <div>({mo36} / mo)</div>
+                    </div>
+                    
+                </label>
+            </div>
+
+            <div className="p-2 bg-zinc-200 rounded">
+                <label className='flex items-center'>
+                    <input className='mr-2' type="radio" name="month" value="60" onChange={()=>{handleChangeMonth(60, "9.99")}}/>
+                    <div className='w-full flex justify-between'>
+                        <div>60 mo - 9.99% APR</div>
+                        <div>({mo60} / mo)</div>
+                    </div>
+                </label>
+            </div>
 
           <div className='min-w-36 mx-auto mt-16'>
-            <button className='button-green !rounded-2xl' type="button" onClick={handleUpdateRecord}>Apply</button>  
+            <button disabled={!period.status}  className={`${!period.status?"hover:bg-opacity-100 opacity-65":""} button-green !rounded-2xl`} type="button" onClick={handleUpdateRecord}>Sign Agreement</button>  
           </div>
           
         </form>
