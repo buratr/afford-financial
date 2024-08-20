@@ -17,6 +17,7 @@ function ActualAddPage() {
 
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [studentName, setStudentName] = useState('');
   const [SS, setSS] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [income, setIncome] = useState('');
@@ -47,23 +48,27 @@ function ActualAddPage() {
       setIncome(value);
     }
   };
-
+///api/get-records/${id}
   const fetchRecordById = async (id: string) => {
-    const response = await fetch(`/api/get-records/${id}`, {
+    const response = await fetch(`/api/get-records`, {
       cache: 'no-store',
       method: 'POST',
       headers: {
         'Cache-Control': 'no-cache',
       },
+      body: JSON.stringify({
+        id: id
+      }),
     });
     const data = await response.json();
-    const record =data.data[0]; // data.find((item: any) => item.aplicant_id === id);
+    const record =data.data[0]; // data.find((item: any) => item.applicant_id === id);
     //console.log("record: ", data)
     if (record) {
       setName(record?.name || '');
       setLastName(record?.last_name || '');
+      setStudentName(record?.student_name || '');
       setSS(record?.ss || '');
-      setDateOfBirth(record?.date_of_birth || '');
+      setDateOfBirth(record?.date_of_birth.split('T')[0] || '');
       setIncome(record?.income || '');
     }
   };
@@ -83,6 +88,7 @@ function ActualAddPage() {
         id,
         name,
         lastName,
+        studentName,
         SS,
         dateOfBirth,
         income,
@@ -134,6 +140,19 @@ function ActualAddPage() {
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
+
+          <div className='add-form-grid'>
+            <label className='text-sm font-semibold shrink-0 text-right' htmlFor="Last">Student Name</label>
+            <input
+              id="Last"
+              className='input-gray'
+              type="text"
+              placeholder=""
+              value={studentName}
+              onChange={(e) => setStudentName(e.target.value)}
+            />
+          </div>
+
           <div className='add-form-grid'>
             <label className='text-sm font-semibold shrink-0 text-right' htmlFor="ss">SS #</label>
             <input

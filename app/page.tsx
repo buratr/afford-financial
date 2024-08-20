@@ -30,7 +30,7 @@ export default function Home() {
     return <main>
             <Navbar/>
             <section className="w-full bg-white flex flex-col justify-start items-center min-h-screen py-8">
-              <div className="container px-4 xl:px-24">
+              <div className="container px-4 xl:px-4">
                 <div className="w-full pt-32">
                   <p>Loading...</p>
                 </div>
@@ -45,7 +45,7 @@ export default function Home() {
         <div>
         <Navbar/>
           <section className="w-full bg-white flex flex-col justify-start items-center min-h-screen py-8">
-            <div className="container px-4 xl:px-24">
+            <div className="container px-4 xl:px-4">
               <Providerportal/>
             </div>
           </section>

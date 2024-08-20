@@ -3,10 +3,10 @@ import { sql } from '@vercel/postgres';
 
 export async function PUT(request: NextRequest) {
   try {
-    const { id, name, lastName, SS, dateOfBirth, income } = await request.json();
+    const { id, name, lastName, studentName, SS, dateOfBirth, income } = await request.json();
     
     const currentDate = new Date();
-    const aplicantDate = currentDate.toISOString().split('T')[0];
+    const applicantDate = currentDate.toISOString().split('T')[0];
     const loanAmount = Math.round(((income/100)*10)  / 1000) * 1000 
     let expiration
     currentDate.setFullYear(currentDate.getFullYear() +1);
@@ -15,8 +15,8 @@ export async function PUT(request: NextRequest) {
     // Обновляем запись в таблице по ID
     const result = await sql`
       UPDATE records 
-      SET aplicant_date = ${aplicantDate}, name = ${name}, last_name = ${lastName}, ss = ${SS}, date_of_birth = ${dateOfBirth}, income = ${income}, loan_amount = ${loanAmount}, status = 'Awaiting signature', expiration = ${expiration}
-      WHERE aplicant_id = ${id} ;
+      SET applicant_date = ${applicantDate}, name = ${name}, last_name = ${lastName}, student_name = ${studentName}, ss = ${SS}, date_of_birth = ${dateOfBirth}, income = ${income}, loan_amount = ${loanAmount}, status = 'Awaiting signature', expiration = ${expiration}
+      WHERE applicant_id = ${id} ;
     `;
 
     return NextResponse.json({ message: 'Record updated successfully' }, { status: 200 });

@@ -44,11 +44,13 @@ body {
   }
 
   .tabl-text{
-    @apply text-xs text-black font-semibold
+    @apply text-xs text-black font-semibold flex h-full items-center
   }
-
+  .tabl-text.tabl-text-hover{
+    @apply hover:opacity-70 cursor-pointer
+  }
   .tabl-grid{
-    @apply py-2 px-8 rounded-3xl grid gap-4 grid-flow-col items-center auto-cols-fr
+    @apply py-2 px-8 rounded-3xl grid gap-4 grid-flow-col items-center auto-cols-fr grid-cols-[33px_1fr]
   }
 
   .input-violet{

@@ -12,7 +12,7 @@ export const Providerportal = ()=>{
 
   const [inputValue, setInputValue] = useState('');
   const [applicantId, setApplicantId] = useState('')
-  const [createdAplicant, setCreatedAplicant] = useState<boolean>(false)
+  const [createdApplicant, setCreatedApplicant] = useState<boolean>(false)
   const [currentUrl, setCurrentUrl] = useState('');
 
   useEffect(() => {
@@ -33,32 +33,32 @@ export const Providerportal = ()=>{
 
 
 
-  const handleAddAplicant = async () => {
-    const newAplicantId = generateId();
+  const handleAddApplicant = async () => {
+    const newApplicantId = generateId();
     const response = await fetch('/api/add-record', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        aplicantPhone: inputValue,
-        aplicantId:newAplicantId
+        applicantPhone: inputValue,
+        applicantId:newApplicantId
       }),
     });
-    setCreatedAplicant(true)
+    setCreatedApplicant(true)
     setInputValue("")
-    setApplicantId(newAplicantId);
+    setApplicantId(newApplicantId);
   }
 
 
   useEffect(()=>{
-    if (createdAplicant) {
+    if (createdApplicant) {
       
     }
-  },[createdAplicant])
+  },[createdApplicant])
 
   function backToDashboard(){
-    setCreatedAplicant(false)
+    setCreatedApplicant(false)
   }
 
     return(
@@ -66,7 +66,7 @@ export const Providerportal = ()=>{
         <div className="container px-4">
           <div className="w-full">
            
-          {!createdAplicant && 
+          {!createdApplicant && 
           <div>
             <form className="flex mb-5 flex-wrap max-md:gap-6" onSubmit={(e) => e.preventDefault()}>
                 <Input 
@@ -76,13 +76,13 @@ export const Providerportal = ()=>{
                 changeInput={handleInputChange}
                 />
                 
-                <Buttonviolet text="Initiate Application" clickBtn={handleAddAplicant} />
+                <Buttonviolet text="Initiate Application" clickBtn={handleAddApplicant} />
               </form>
             
               <Tabs/>
             </div>}
 
-            {createdAplicant &&  
+            {createdApplicant &&  
             <div className="my-auto h-full"> 
               <div className="w-full text-center text-xl font-semibold mb-16">
                 Thank you! Applicant Created!

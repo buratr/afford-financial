@@ -76,7 +76,7 @@ export const Navbar = ()=>{
       };
     return(
         <nav className="p-4 bg-white absolute top-0 left-0 right-0">
-            <div className="container mx-auto flex justify-between items-center xl:px-24">
+            <div className="container mx-auto flex justify-between items-center xl:px-4">
                 <a href="/" className="block w-32"><img src="logo_hr.jpg" alt="" /></a>
                 <div className="text-lg font-medium text-violet mr-auto ml-6">
                     PROVIDER PORTAL
