@@ -33,7 +33,7 @@ function Terms() {
             <h2>YOUR CONTRACT WITH US</h2>
 
             <p>
-                This document, and any future changes to it, is your contract with us. We will refer to this document as your "Agreement" or "Credit Card Agreement"; these terms also include any changes we may make to this document from time to time.
+                This document, and any future changes to it, is your contract with us. We will refer to this document as your &quot;Agreement&quot; or &quot;Credit Card Agreement&quot;; these terms also include any changes we may make to this document from time to time.
             </p>
 
             <p>We reserve the right to amend this Agreement at any time, by adding, deleting, or changing provisions of this Agreement. All amendments will comply with the applicable notice requirements of federal and North Carolina law that are in effect at that time.</p>
@@ -48,8 +48,8 @@ The reasons we may amend this Agreement include the following:
                 <li>Changes to overall economic and market trends, product design, and business needs.</li>
             </ul>
 
-            <p>"We", "us", "our" means Bank of America, N.A.<br/><br/>
-            "You" and "your" mean each and all of the persons who are granted, accept or use the account and any person who has guaranteed payment of the account.
+            <p>&quot;We&quot;, &quot;us&quot;, &quot;our&quot; means Bank of America, N.A.<br/><br/>
+            &quot;You&quot; and &quot;your&quot; mean each and all of the persons who are granted, accept or use the account and any person who has guaranteed payment of the account.
             You may use your account for personal, family, or household purposes. You may not use your account for business or commercial purposes.
             Our failure or delay in exercising any of our rights under this Agreement does not mean that we are unable to exercise those rights later.
             </p>
@@ -144,23 +144,23 @@ The reasons we may amend this Agreement include the following:
             <p>the first day of the billing cycle, whichever date is later.<br/>
             We will begin accruing interest on Balance Transfers and Cash Advances on the transaction date. The transaction date for access checks is the date the check is first deposited or cashed.
             New Balance Total means the total billed amount as of the Closing Date of a billing cycle, as shown on your monthly statement.
-            Pay in Full or Paid in Full means payments and credits (excluding credits made in accordance with first-year fee limits or the Military Lending Act) in a billing cycle totaling at least your previous billing cycle's New Balance Total.
+            Pay in Full or Paid in Full means payments and credits (excluding credits made in accordance with first-year fee limits or the Military Lending Act) in a billing cycle totaling at least your previous billing cycle&apos;s New Balance Total.
             Your Payment Due Date will be at least 25 days from your statement Closing Date and will fall on the same calendar day each month.
             </p>
 
             <p>BALANCES SUBJECT TO INTEREST RATE<br/><br/>
             Average Daily Balance Method (including new Purchases): We calculate separate Balances Subject to an Interest Rate for Purchases and for each Introductory or Promotional Offer balance consisting of Purchases by: (1) calculating a daily balance for each day in the current billing cycle; (2) adding all the daily balances together; and (3) dividing the sum of the daily balances by the number of days in the current billing cycle.
-            To calculate the daily balance for each day in the current billing cycle, we: (1) take the beginning balance; (2) add an amount equal to the applicable DPR multiplied by the previous day's daily balance;
+            To calculate the daily balance for each day in the current billing cycle, we: (1) take the beginning balance; (2) add an amount equal to the applicable DPR multiplied by the previous day&apos;s daily balance;
             (3) add new Purchases, new Account Fees, and new Transaction Fees; and (4) subtract applicable payments and credits. If any daily balance is less than zero we treat it as zero.
             </p>
 
             <p>Average Balance Method (including new Balance Transfers and new Cash Advances): We calculate separate Balances Subject to an Interest Rate for Balance Transfers, Cash Advances, and for each Introductory or Promotional Offer balance consisting of Balance Transfers or Cash Advances by: (1) calculating a daily balance for each day in the current billing cycle; (2) calculating a daily balance for each day prior to the current billing cycle that had a Pre-Cycle balance – a Pre-Cycle balance is a Balance Transfer or a Cash Advance with a transaction date prior to the current billing cycle but with a posting date within the current billing cycle; (3) adding all the daily balances together; and (4) dividing the sum of the daily balances by the number of days in the current billing cycle.</p>
 
-            <p>To calculate the daily balance for each day in the current billing cycle, we: (1) take the beginning balance; (2) add an amount equal to the applicable DPR multiplied by the previous day's daily balance;
+            <p>To calculate the daily balance for each day in the current billing cycle, we: (1) take the beginning balance; (2) add an amount equal to the applicable DPR multiplied by the previous day&apos;s daily balance;
             (3) add new Balance Transfers, Cash Advances and Transaction Fees; and (4) subtract applicable payments and credits. If any daily balance is less than zero we treat it as zero.
             </p>
 
-            <p>To calculate a daily balance for each day prior to the current billing cycle that had a Pre-Cycle balance, we: (1) take the beginning balance attributable solely to a Pre-Cycle balance (which will be zero on the transaction date associated with the first Pre-Cycle balance); (2) add an amount equal to the applicable DPR multiplied by the previous day's daily balance; and (3) add only the applicable Pre-Cycle balances, and their related Transaction Fees. We exclude from this calculation all transactions posted in previous billing cycles.</p>
+            <p>To calculate a daily balance for each day prior to the current billing cycle that had a Pre-Cycle balance, we: (1) take the beginning balance attributable solely to a Pre-Cycle balance (which will be zero on the transaction date associated with the first Pre-Cycle balance); (2) add an amount equal to the applicable DPR multiplied by the previous day&apos;s daily balance; and (3) add only the applicable Pre-Cycle balances, and their related Transaction Fees. We exclude from this calculation all transactions posted in previous billing cycles.</p>
 
             <p>TRANSACTION FEES<br/><br/>
             We will assess the following Transaction Fees to your account in the same category to which the transaction is posted, [see the Pricing Information table for fee amounts].
@@ -210,7 +210,7 @@ The reasons we may amend this Agreement include the following:
             </p>
 
             <p>WHEN WE MAY REQUIRE IMMEDIATE REPAYMENT<br/>
-            If you are in default, then in addition to our other remedies under this Agreement, we can require immediate payment of your total outstanding balance and, unless prohibited by applicable law, we can also require you to pay the costs we incur in any collection proceeding, as well as reasonable attorneys' fees if we refer your account for collection to an attorney who is not our salaried employee.
+            If you are in default, then in addition to our other remedies under this Agreement, we can require immediate payment of your total outstanding balance and, unless prohibited by applicable law, we can also require you to pay the costs we incur in any collection proceeding, as well as reasonable attorneys&apos; fees if we refer your account for collection to an attorney who is not our salaried employee.
             <br/>OTHER PAYMENT TERMS<br/>
             We can accept late payments, partial payments, or payments with any restrictive writing without losing any of our rights under this Agreement. This means that no payment, including those marked with paid in full or with any other restrictive words, shall operate as an accord and satisfaction without the prior written approval of one of our senior officers. You may not use a postdated check to make a payment. If you do postdate a payment check, we may elect to honor it upon presentment or return it uncredited to the person that presented it, without in either case waiting for the date shown on the check. We are not liable to you for any loss or expense arising out of the action we elect to take.
             <br/>MODIFICATIONS TO REQUIRED MINIMUM MONTHLY PAYMENTS<br/>
@@ -243,12 +243,12 @@ The reasons we may amend this Agreement include the following:
 
             <p>PURPOSES FOR USING YOUR ACCOUNT<br/>
             You may not use this account to make a payment on this or any other credit account with us or our affiliates. You may not use or permit your account to be used to make any illegal transaction. You will only use your account for transactions that are legal where you conduct them. We may charge your account for such transactions. We will not be liable if you engage in an illegal transaction. We may deny authorization of any transactions identified as Internet gambling. You may not use your account to conduct transactions in any country or territory, or with any individual or entity that is subject to economic sanctions administered and enforced by the
-            U.S. Department of the Treasury's Office of Foreign Assets Control (OFAC). Use of your account in those countries will be blocked.
+            U.S. Department of the Treasury&apos;s Office of Foreign Assets Control (OFAC). Use of your account in those countries will be blocked.
             <br/><br/>PERSONS USING YOUR ACCOUNT<br/>
             If you permit any person to use your card, access checks, account number, or other credit device with the authorization to obtain
-            credit on your account, you will be liable for all transactions made by that person including transactions for which you may not have intended to be liable, even if the amount of those transactions causes a credit line to be exceeded.
+            credit on your account, you will be liable for all transactions made by that person including transactions for which you may not have intended to be liable, even if the amount of those transactions causes a credit line to be exceeded.
             You may authorize any person to use your account in the following ways: (1) by lending or otherwise intentionally making your card, access checks, account number, or credit device accessible to another; (2) by requesting us to formally add a person to your account as an Authorized User; or (3) by any other ways in which you would be legally considered to have allowed another to use your account or to be legally prevented from denying that you did so.
-            An "Authorized User" means any person that you have formally requested we add to your account and to which we have approved. If approved, use of your account by such Authorized User is subject to the terms of this Agreement. You agree that an Authorized User may have the same access to information about the account as you do and that we may discuss your account with an Authorized User. An Authorized User may take advantage of benefits associated with your account, but may not add any other person to your account.
+            An &quot;Authorized User&quot; means any person that you have formally requested we add to your account and to which we have approved. If approved, use of your account by such Authorized User is subject to the terms of this Agreement. You agree that an Authorized User may have the same access to information about the account as you do and that we may discuss your account with an Authorized User. An Authorized User may take advantage of benefits associated with your account, but may not add any other person to your account.
             In order to request that we add an Authorized User to your account, you must: (1) be eligible to add a person to your account; (2) acknowledge to us that you have obtained the express permission of the person to be added to the account and that certain information about that person will be shared with us; (3) provide us with that person’s information, which may include full legal name, date of birth, social security/tax identification number, primary address, their relationship to you, and citizenship status; and (4) inform that person that we report the account to the Consumer Reporting Agencies, which means the account and account activity may appear on that person’s credit report. If the request is approved, you must make and provide a copy of this Agreement to the Authorized User.
             Think carefully before you allow anyone to use your card, access checks, account number, or other credit device. By doing so, you authorize that person to use your account to the same extent that you can and they may have the same access to information as you do, including but not limited to making Purchases, Balance Transfers, Cash Advances, and allowing others to use your account. Your account does not permit you to limit the nature or amount of authority you give to any person you have authorized to use your account and you will not attempt to do so. The authority you have granted to such person will continue until you notify us that you are terminating the authority and you physically retrieve the card, checks or other credit device.
             When we send you account materials (cards, statements, and notices), you will be responsible for delivering those materials to any person associated with your account and any authorized users of your account. Notice to any of you will be considered notice to all of you.

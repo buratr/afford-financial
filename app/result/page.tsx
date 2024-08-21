@@ -159,7 +159,7 @@ function ActualAddPage() {
             <Image width={16} src={close} alt="loading" />
             </a>
             <div className='text-violet text-xl font-bold text-center mb-8'>
-            CONGRATULATIONS! YOU'VE BEEN APPROVED FOR
+            CONGRATULATIONS! YOU&apos;VE BEEN APPROVED FOR
             </div>
           <div className='mx-auto relative w-36 flex justify-center items-center'>
             <label className='cursor-pointer hover:opacity-50 absolute right-[-16px] bottom-auto top-[-16px] text-sm font-semibold shrink-0 text-right' htmlFor="summ">
