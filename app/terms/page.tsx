@@ -7,6 +7,7 @@ import Image from 'next/image';
 import preloader from "/app/assets/svgs/preloader.gif"
 import pen from "/app/assets/svgs/pen.svg"
 import close from "/app/assets/svgs/close.svg"
+import Terms from "../components/termstext"
 
 function calculateMonthlyPayment(loanAmount:number, months:number, annualRate:number) {
     // Ежемесячная процентная ставка
@@ -26,6 +27,8 @@ function ActualAddPage() {
   const [records, setRecords] = useState<any[]>([]);
   const [maxDate, setMaxDate] = useState('');
   const [pageBusy, setPageBusy] = useState(false);
+  const [placeholder, setPlaceholder] = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -75,7 +78,7 @@ function ActualAddPage() {
         setLoanAmount(value);
     }
   };
-///api/get-records/${id}
+    ///api/get-records/${id}
   const fetchRecordById = async (id: string) => {
     const response = await fetch(`/api/get-records`, {
       cache: 'no-store',
@@ -122,16 +125,13 @@ function ActualAddPage() {
       },
       body: JSON.stringify({
         id,
-        loanAmount,
-        period: period.month,
-        percent: percent,
-        expiration
+        terms:true
       }),
     });
 
     if (response.ok) {
       setMessage('Record updated successfully');
-      router.push('/terms?id='+id);
+      router.push('/congratulations');
     } else {
       setMessage('Failed to update record');
       setPageBusy(false);
@@ -142,6 +142,16 @@ function ActualAddPage() {
     setPeriod({status:true, month:month})
     setPercent(percent)
   }
+
+  function handleSign(e: ChangeEvent<HTMLInputElement>){
+    let value = e.target.value;
+    if(value !== ""){
+        setPlaceholder(true)
+    }else{
+        setPlaceholder(false)
+    }
+  }
+
   return (
     <main>
       <Navbar />
@@ -158,63 +168,34 @@ function ActualAddPage() {
             <a href="/" className='absolute w-4 left-auto right-0 top-[-40px] hover:opacity-50'>
             <Image width={16} src={close} alt="loading" />
             </a>
-            <div className='text-violet text-xl font-bold text-center mb-8'>
-            CONGRATULATIONS! YOU'VE BEEN APPROVED FOR
-            </div>
-          <div className='mx-auto relative w-36 flex justify-center items-center'>
-            <label className='cursor-pointer hover:opacity-50 absolute right-[-16px] bottom-auto top-[-16px] text-sm font-semibold shrink-0 text-right' htmlFor="summ">
-            <Image width={18} src={pen} alt="loading" />
-                </label>
-            <div className='absolute left-4 my-auto text-violet text-3xl font-semibold'>$</div>
-            <input
-              id="summ"
-              className=' w-full pr-3 pl-10 py-2 text-violet text-2xl font-extrabold border-gray-300 border hover:border hover:border-gray-500 rounded-md  focus:outline-none focus:border-gray-500'
-              type="text"
-              placeholder=""
-              value={loanAmount}
-              onChange={handleAmountChange}
-            />
-          </div>
            
-            <div className=' text-xs font-extrabold mt-5'>
-            Choose your terms:
+            <div className=' text-sm font-extrabold mt-5'>
+            Terms and conditions:
             </div>
 
-            <div className="p-2 bg-zinc-200 rounded">
-                <label className='flex items-center'>
-                    <input className='mr-2' type="radio" name="month" value="12" onChange={()=>{handleChangeMonth(12, "0")}} />
-                    <div className='w-full flex justify-between'>
-                        <div>12 mo - no interest</div>
-                        <div>({mo12} / mo)</div>
-                    </div>
-                    
-                </label>
+            <div className='max-h-60 overflow-y-scroll border-gray-300 border p-4 mb-6'>
+                <Terms/>
             </div>
 
-            <div className="p-2 bg-zinc-200 rounded">
+            <div className="p-2 relative z-20">
                 <label className='flex items-center'>
-                    <input className='mr-2' type="radio" name="month" value="36" onChange={()=>{handleChangeMonth(36, "6.99")}}/>
+                    <input className='mr-2' type="radio" name="month" value="12" onChange={()=>{setConfirm(true)}} />
                     <div className='w-full flex justify-between'>
-                        <div>36 mo - 6.99% APR</div>
-                        <div>({mo36} / mo)</div>
-                    </div>
-                    
-                </label>
-            </div>
-
-            <div className="p-2 bg-zinc-200 rounded">
-                <label className='flex items-center'>
-                    <input className='mr-2' type="radio" name="month" value="60" onChange={()=>{handleChangeMonth(60, "9.99")}}/>
-                    <div className='w-full flex justify-between'>
-                        <div>60 mo - 9.99% APR</div>
-                        <div>({mo60} / mo)</div>
+                        I agree to term and conditions
                     </div>
                 </label>
             </div>
 
-          <div className='min-w-36 mx-auto mt-16'>
-            <button disabled={!period.status}  className={`${!period.status?"hover:bg-opacity-100 opacity-65":""} button-green !rounded-2xl`} type="button" onClick={handleUpdateRecord}>Sign Agreement</button>  
-          </div>
+            <div className='border-gray-300 border rounded-md h-24 flex items-center justify-center mt-2 relative'>
+                <input className='relative z-10 bg-transparent sign-input mr-2 w-full text-center text-9xl py-4 flex justify-center items-center rounded-md' type="text" name="signature" onChange={handleSign}/>
+                <div className='absolute left-auto right-auto text-xs text-slate-600'>
+                  {!placeholder?"Enter full name for digital signature":""}  
+                </div>
+            </div>
+
+           <div className='min-w-36 mx-auto mt-8'>
+                <button disabled={!confirm}  className={`${!confirm?"hover:bg-opacity-100 opacity-65":""} button-green !rounded-2xl`} type="button" onClick={handleUpdateRecord}>Confirm</button>  
+           </div>
           
         </form>
         </div>

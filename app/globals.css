@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'ReadingRegular';
+  src: url('/font/Reading Regular.otf') format('opentype'),
+       url('/font/Reading Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -72,6 +80,31 @@ body {
   .add-form-grid{
     @apply grid grid-flow-col grid-cols-3 items-center gap-3
   }
+
+  .sign-input{
+    font-family: 'ReadingRegular', sans-serif;
+    outline: none;
+    caret-color: transparent;
+  }
+
+  p{
+    @apply my-3 text-sm
+  }
+
+  h2{
+    @apply font-bold
+  }
+
+  ul{
+    font-size: 0.875rem /* 14px */;
+    line-height: 1.25rem /* 20px */;
+    list-style: disc;
+    padding: 0;
+    margin: 16px;
+  }
+  
+
+  
 }
 
 @keyframes blink {

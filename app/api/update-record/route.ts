@@ -3,10 +3,10 @@ import { sql } from '@vercel/postgres';
 
 export async function PUT(request: NextRequest) {
   try {
-    const { id, name, lastName, studentName, SS, dateOfBirth, income, loanAmount, expiration, status, period, percent } = await request.json();
+    const { id, terms, applicantDate, name, lastName, studentName, SS, dateOfBirth, income, loanAmount, expiration, status, period, percent } = await request.json();
     
     const currentDate = new Date();
-    const applicantDate = currentDate.toISOString().split('T')[0];
+    //const applicantDate = currentDate.toISOString().split('T')[0];
    // const loanAmount = 10000 //Math.round(((income/100)*10)  / 1000) * 1000 
     // let expiration
     // currentDate.setFullYear(currentDate.getFullYear() +1);
@@ -14,6 +14,10 @@ export async function PUT(request: NextRequest) {
 
     // Обновляем запись в таблице по ID
     let query:string = "UPDATE records SET"
+
+    if(terms){
+      query += ` terms = ${terms}`
+    }
 
     if(period){
       query += ` period = ${period}`
@@ -48,9 +52,12 @@ export async function PUT(request: NextRequest) {
     if(status){
       query += `, status = '${status}'`
     }
+    if(applicantDate){
+      query += `, applicant_date = '${applicantDate}'`
+    }
 
      query += ` WHERE applicant_id = '${id}'`
-     //console.log("query: ", query)
+    //console.log("query: ", query)
     // const result = await sql`
     //   UPDATE records 
     //   SET applicant_date = ${applicantDate}, name = ${name}, last_name = ${lastName}, student_name = ${studentName}, ss = ${SS}, date_of_birth = ${dateOfBirth}, income = ${income}, loan_amount = ${loanAmount}, status = 'Awaiting signature', expiration = ${expiration}

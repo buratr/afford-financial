@@ -68,7 +68,7 @@ function ActualAddPage() {
       setLastName(record?.last_name || '');
       setStudentName(record?.student_name || '');
       setSS(record?.ss || '');
-      setDateOfBirth(record?.date_of_birth.split('T')[0] || '');
+      setDateOfBirth(record?.date_of_birth?.split('T')[0] || '');
       setIncome(record?.income || '');
     }
   };
@@ -82,6 +82,7 @@ function ActualAddPage() {
     const loanAmount = 10000 //Math.round(((income/100)*10)  / 1000) * 1000 
     let expiration
     const currentDate = new Date();
+    const applicantDate = currentDate.toISOString().split('T')[0];
     currentDate.setFullYear(currentDate.getFullYear() +1);
     expiration = currentDate.toISOString().split('T')[0];
     const response = await fetch('/api/update-record', {
@@ -99,7 +100,8 @@ function ActualAddPage() {
         income,
         loanAmount,
         expiration,
-        status:"Awaiting signature"
+        status:"Awaiting signature",
+        applicantDate
       }),
     });
 
