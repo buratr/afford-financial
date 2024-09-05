@@ -39,7 +39,7 @@ function ActualAddPage() {
   const [mo12, setMo12] = useState(0);
   const [mo36, setMo36] = useState(0);
   const [mo60, setMo60] = useState(0);
-  const [period, setPeriod] = useState({status:false, month:0});
+  const [period, setPeriod] = useState({status:false, month:12});
   const [percent, setPercent] = useState('0');
 
   useEffect(() => {
@@ -95,7 +95,7 @@ function ActualAddPage() {
       setLastName(record?.last_name || '');
       setStudentName(record?.student_name || '');
       setSS(record?.ss || '');
-      setDateOfBirth(record?.date_of_birth.split('T')[0] || '');
+      setDateOfBirth(record?.date_of_birth?.split('T')[0] || '');
       setIncome(record?.income || '');
       setLoanAmount(record?.loan_amount || '')
 

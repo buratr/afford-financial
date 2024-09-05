@@ -3,12 +3,12 @@ import { sql } from '@vercel/postgres';
 
 export async function POST(request: NextRequest) {
   try {
-    const {applicantId, applicantPhone, name, lastName, studentName, SS, dateOfBirth, income, loanAmount, status, expiration } = await request.json();
-    
+    const {applicantId, applicantDate, applicantPhone, name, lastName, studentName, SS, dateOfBirth, income, loanAmount, status, expiration } = await request.json();
+  
     // Вставляем новую запись в таблицу
     const result = await sql`
-      INSERT INTO records (applicant_id, applicant_phone, name, last_name, student_name, ss, date_of_birth, income, loan_amount, status, expiration)
-      VALUES (${applicantId}, ${applicantPhone}, ${name}, ${lastName}, ${studentName}, ${SS}, ${dateOfBirth}, ${income}, ${loanAmount}, ${status}, ${expiration});
+      INSERT INTO records (applicant_id, applicant_date, applicant_phone, name, last_name, student_name, ss, date_of_birth, income, loan_amount, status, expiration)
+      VALUES (${applicantId}, ${applicantDate}, ${applicantPhone}, ${name}, ${lastName}, ${studentName}, ${SS}, ${dateOfBirth}, ${income}, ${loanAmount}, ${status}, ${expiration});
     `;
 
     return NextResponse.json({ message: 'Record added successfully' }, { status: 200 });

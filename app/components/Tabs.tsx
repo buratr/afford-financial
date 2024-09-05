@@ -15,12 +15,13 @@ interface InputProps {
 const Tabs: FC<InputProps> = () => {
     const router = useRouter();
     const [records, setRecords] = useState<any[]>([]);
+    const [tabAllAplication ,setTabAllAplication ] =  useState(false)
     const [tabProcessed ,setTabProcessed ] =  useState(false)
     const [tabApproved ,setTabApproved ] =  useState(true)   
     const [tabFunded  ,setFunded ] =  useState(false)
     const [searchApplicant  ,setSearchApplicant ] =  useState("")
     const [sort, setSort ] =  useState({field:"id", order:"DESC"})
-
+    const [activeTab  ,setActiveTab ] =  useState(2)
 
     function handleSort(field:string){
       if(field === sort.field){
@@ -46,9 +47,10 @@ const Tabs: FC<InputProps> = () => {
 
     function selectTab(id:number){
         switch (id) {
-            case 1:setTabProcessed(true);setTabApproved(false);setFunded(false);break;
-            case 2:setTabProcessed(false);setTabApproved(true);setFunded(false);break;
-            case 3:setTabProcessed(false);setTabApproved(false);setFunded(true);break;
+            case 4:setActiveTab(4);setTabAllAplication(true);setTabProcessed(false);setTabApproved(false);setFunded(false);break;
+            case 1:setActiveTab(1);setTabAllAplication(false);setTabProcessed(true);setTabApproved(false);setFunded(false);break;
+            case 2:setActiveTab(2);setTabAllAplication(false);setTabProcessed(false);setTabApproved(true);setFunded(false);break;
+            case 3:setActiveTab(3);setTabAllAplication(false);setTabProcessed(false);setTabApproved(false);setFunded(true);break;
         }
     }
     function generateId() {
@@ -58,6 +60,13 @@ const Tabs: FC<InputProps> = () => {
     useEffect(() => {
       let rand = generateId();
       const timestamp = Date.now(); 
+      let filterStatus="Approved";
+      switch (activeTab) {
+        case 1: filterStatus ="Awaiting signature"; break;
+        case 2: filterStatus ="Approved"; break;
+        case 3: filterStatus ="Expired"; break;
+        default: filterStatus=""; break;
+      }
       const fetchRecords = async () => {
         const response = await fetch(`/api/get-records`, {
           cache: 'no-store',
@@ -67,7 +76,8 @@ const Tabs: FC<InputProps> = () => {
           },
           body: JSON.stringify({
             search: searchApplicant,
-            sort:sort
+            sort:sort,
+            status: filterStatus,
           }),
         });
         const data = await response.json();
@@ -76,7 +86,7 @@ const Tabs: FC<InputProps> = () => {
       };
   
       fetchRecords();
-    }, [searchApplicant, sort]);
+    }, [searchApplicant, sort, activeTab]);
     
 
     function handleReSend(id:string){
@@ -86,8 +96,11 @@ const Tabs: FC<InputProps> = () => {
       <div className="w-full">
         
         <button 
+        onClick={()=>{selectTab(4)}}
+        className={tabAllAplication?"tab-btn-active":`tab-btn`}>ALL APPLICATIONS</button>
+        <button 
         onClick={()=>{selectTab(1)}}
-        className={tabProcessed?"tab-btn-active":`tab-btn`}>IN PROCESSED</button>
+        className={tabProcessed?"tab-btn-active":`tab-btn`}>IN PROCESS</button>
         <button 
         onClick={()=>{selectTab(2)}}
         className={tabApproved?"tab-btn-active":`tab-btn`}>APPROVED</button>
@@ -108,10 +121,10 @@ const Tabs: FC<InputProps> = () => {
               </div>
           
           <div className='max-md:overflow-x-scroll mt-5'>
-          {tabProcessed && 
+          {tabAllAplication && 
             <div className='grid gap-3 grid-flow-row max-md:w-max'>
             
-            {/* IN PROCESSED */}
+            {/* ALL APPLICATIONS */}
 
             <div className='tabl-grid '>
                     <div className='tabl-text tabl-text-hover'
@@ -142,10 +155,54 @@ const Tabs: FC<InputProps> = () => {
                     <div className='tabl-text'>{record.status}</div>
 
                     <div className='tabl-text'>
-                        <Button text="Re-send"/>
+                        <Button  text="Re-send"/>
                     </div>
                     <div className='tabl-text'>
-                        <Button text="Complete application"/>
+                        <Button btnClick={()=>{handleReSend(record.applicant_id)}}  text="Complete application"/>
+                    </div>
+                </div>
+                
+                ))}
+
+            </div>}
+          {tabProcessed && 
+            <div className='grid gap-3 grid-flow-row max-md:w-max'>
+            
+            {/* IN PROCESS */}
+
+            <div className='tabl-grid '>
+                    <div className='tabl-text tabl-text-hover'
+                     onClick={()=>{handleSort("id")}}>#
+                      <Image width={10} height={10} className={`ml-2 ${sort.order === "DESC"?"scale-y-[-1]":""}  ${sort.field !== "id" ? "opacity-0" : ""}`}   src={sortIcon} alt="sort" />
+                    </div>
+                    <div className='tabl-text tabl-text-hover'
+                    onClick={()=>{handleSort("applicant_phone")}}>Applicant Phone
+                     <Image width={10} height={10} className={`ml-2 ${sort.order === "DESC"?"scale-y-[-1]":""}  ${sort.field !== "applicant_phone" ? "opacity-0" : ""}`}   src={sortIcon} alt="sort" />
+                    </div>
+                    <div className='tabl-text tabl-text-hover'
+                    onClick={()=>{handleSort("applicant_date")}}>Applicant Date
+                     <Image width={10} height={10} className={`ml-2 ${sort.order === "DESC"?"scale-y-[-1]":""}  ${sort.field !== "applicant_date" ? "opacity-0" : ""}`}   src={sortIcon} alt="sort" />
+                    </div>
+
+                    <div className='tabl-text tabl-text-hover'
+                    onClick={()=>{handleSort("status")}}>Status
+                     <Image width={10} height={10} className={`ml-2 ${sort.order === "DESC"?"scale-y-[-1]":""}  ${sort.field !== "status" ? "opacity-0" : ""}`}   src={sortIcon} alt="sort" />
+                    </div>
+                    <div className='w-20'></div>
+                    <div className='w-20'></div>
+                </div>
+                {records && records.map((record, index) => (
+                 <div key={index} className='tabl-grid bg-slate-100'>
+                    <div className='tabl-text w-6'>{record.id}</div>
+                    <div className='tabl-text'>{record.applicant_phone}</div>
+                    <div className='tabl-text'>{record.applicant_date?record.applicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
+                    <div className='tabl-text'>{record.status}</div>
+
+                    <div className='tabl-text'>
+                        <Button  text="Re-send"/>
+                    </div>
+                    <div className='tabl-text'>
+                        <Button btnClick={()=>{handleReSend(record.applicant_id)}}  text="Complete application"/>
                     </div>
                 </div>
                 

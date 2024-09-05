@@ -3,20 +3,25 @@ import { sql } from '@vercel/postgres';
 
 export async function POST(request: NextRequest) {
   try {
-    const {search, sort, id} = await request.json();
+    const {search, sort, id, status} = await request.json();
 
     let query:string = "SELECT * FROM records"
 
     if(search){
       const querySearch = `%${search}%`;
       query += ` WHERE 
-          name ILIKE '${querySearch}' OR
+          ( name ILIKE '${querySearch}' OR
           last_name ILIKE '${querySearch}' OR
           student_name ILIKE '${querySearch}' OR
           applicant_phone ILIKE '${querySearch}' OR
-          loan_amount::TEXT ILIKE '${querySearch}'
+          loan_amount::TEXT ILIKE '${querySearch}')
       `
+      if(status){
+        query += ` AND status = '${status}'`
+      }
       //console.log("search: ", search)
+    }else if(status){
+      query += ` WHERE status = '${status}'`
     }
 
 
@@ -28,7 +33,8 @@ export async function POST(request: NextRequest) {
       query += ` WHERE applicant_id = '${id}';`
     }
 
-    //console.log("query: ", query)
+    
+    console.log("query: ", query)
     const { rows } = await sql.query(query);
 
     return NextResponse.json({data:rows}, { status: 200 });

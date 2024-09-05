@@ -44,11 +44,11 @@ body {
   }
 
   .tab-btn{
-    @apply bg-neutral-100 text-black text-sm font-bold px-16 py-3 rounded-t-xl max-md:px-4
+    @apply bg-neutral-100 text-black text-sm font-bold px-16 py-3 rounded-t-xl max-lg:px-4 max-lg:text-xs
   }
 
   .tab-btn-active{
-    @apply bg-neutral-300 text-black text-sm font-bold px-16 py-3 rounded-t-xl max-md:px-4 
+    @apply bg-neutral-300 text-black text-sm font-bold px-16 py-3 rounded-t-xl max-lg:px-4 max-lg:text-xs
   }
 
   .tabl-text{

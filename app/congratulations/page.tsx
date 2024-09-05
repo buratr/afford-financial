@@ -147,8 +147,17 @@ function Congratulations() {
             CONGRATULATIONS!
             </div>
 
-           
-           
+           <div className='text-base font-bold text-center mb-8'>
+           Your loan agreement has been completed and payment to StudyPoint Boston is on its way!
+           </div>
+
+           <div className='text-base font-bold text-center mb-8'>
+           Your first payment will be due in 30 days.
+           </div>
+
+           <div className='text-base font-bold text-center'>
+           See email for more details.
+           </div>
 
            <div className='min-w-36 mx-auto mt-8'>
                 <button   className={` button-green !rounded-2xl`} type="button" onClick={handleUpdateRecord}>Close</button>  

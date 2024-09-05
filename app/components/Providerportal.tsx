@@ -4,6 +4,7 @@ import Input from "./Input"
 import Tabs from "./Tabs"
 
 
+
 function generateId() {
   return Math.random().toString(36).substr(2, 9);
 }
@@ -14,6 +15,7 @@ export const Providerportal = ()=>{
   const [applicantId, setApplicantId] = useState('')
   const [createdApplicant, setCreatedApplicant] = useState<boolean>(false)
   const [currentUrl, setCurrentUrl] = useState('');
+  const [inputNumberError, setInputNumberError] = useState<boolean>(false)
 
   useEffect(() => {
     // Определяем текущий URL
@@ -27,6 +29,7 @@ export const Providerportal = ()=>{
   const handleInputChange = (value: string) => {
     if (/^[+\d\s()-]*$/.test(value)) {
       setInputValue(value);
+      setInputNumberError(false)
     }
   };
 
@@ -34,20 +37,30 @@ export const Providerportal = ()=>{
 
 
   const handleAddApplicant = async () => {
-    const newApplicantId = generateId();
-    const response = await fetch('/api/add-record', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        applicantPhone: inputValue,
-        applicantId:newApplicantId
-      }),
-    });
-    setCreatedApplicant(true)
-    setInputValue("")
-    setApplicantId(newApplicantId);
+    if(inputValue !==""){
+      const newApplicantId = generateId();
+      const currentDate = new Date();
+      const applicantDate = currentDate.toISOString().split('T')[0];
+      const response = await fetch('/api/add-record', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          applicantPhone: inputValue,
+          applicantId:newApplicantId,
+          status:"Awaiting signature",
+          applicantDate:applicantDate,
+        }),
+      });
+      await handleSendSms(newApplicantId)
+      setCreatedApplicant(true)
+      setInputValue("")
+      setApplicantId(newApplicantId);
+    }else{
+      setInputNumberError(true)
+    }
+
   }
 
 
@@ -61,6 +74,27 @@ export const Providerportal = ()=>{
     setCreatedApplicant(false)
   }
 
+
+
+  async function handleSendSms(id:string){
+    const response = await fetch('/api/send-sms', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id,
+        currentUrl
+      }),
+    });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.body);
+      } else {
+        console.error('Failed to fetch message');
+      }
+    
+  }
     return(
         <section className="w-full bg-white flex flex-col justify-start items-center min-h-screen py-32">
         <div className="container px-4">
@@ -70,6 +104,7 @@ export const Providerportal = ()=>{
           <div>
             <form className="flex mb-5 flex-wrap max-md:gap-6" onSubmit={(e) => e.preventDefault()}>
                 <Input 
+                error={inputNumberError}
                 type="text" 
                 placeholder="Enter Applicant Mobile #"
                 value={inputValue}
@@ -77,6 +112,7 @@ export const Providerportal = ()=>{
                 />
                 
                 <Buttonviolet text="Initiate Application" clickBtn={handleAddApplicant} />
+                {/* <Buttonviolet text="Send SMS" clickBtn={handleSendSms} /> */}
               </form>
             
               <Tabs/>
