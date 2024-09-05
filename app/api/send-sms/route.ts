@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
    const authToken = process.env.TWILIO_AUTH_TOKEN as string;
 
 
-  
   const client = twilio(accountSid, authToken);
 
 //console.log(id," ", currentUrl)
