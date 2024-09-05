@@ -7,8 +7,6 @@ export async function POST(request: NextRequest) {
 
   let {id, currentUrl} = await request.json();
 
-  // const accountSid = TWILIO_ACCOUNT_SID as string;
-  // const authToken = TWILIO_AUTH_TOKEN as string;
   
   // const client = twilio(accountSid, authToken);
 //console.log(id," ", currentUrl)
