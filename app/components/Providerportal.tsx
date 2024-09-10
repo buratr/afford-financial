@@ -53,7 +53,7 @@ export const Providerportal = ()=>{
           applicantDate:applicantDate,
         }),
       });
-      await handleSendSms(newApplicantId)
+      await handleSendSms(newApplicantId,inputValue)
       setCreatedApplicant(true)
       setInputValue("")
       setApplicantId(newApplicantId);
@@ -76,7 +76,7 @@ export const Providerportal = ()=>{
 
 
 
-  async function handleSendSms(id:string){
+  async function handleSendSms(id:string, phoneNumber:string){
     const response = await fetch('/api/send-sms', {
       method: 'POST',
       headers: {
@@ -84,7 +84,8 @@ export const Providerportal = ()=>{
       },
       body: JSON.stringify({
         id,
-        currentUrl
+        currentUrl,
+        phoneNumber
       }),
     });
       if (response.ok) {

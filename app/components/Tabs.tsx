@@ -125,8 +125,8 @@ const Tabs: FC<InputProps> = () => {
             <div className='grid gap-3 grid-flow-row max-md:w-max'>
             
             {/* ALL APPLICATIONS */}
-
-            <div className='tabl-grid '>
+            {records && records.length > 0 && (
+              <div className='tabl-grid '>
                     <div className='tabl-text tabl-text-hover'
                      onClick={()=>{handleSort("id")}}>#
                       <Image width={10} height={10} className={`ml-2 ${sort.order === "DESC"?"scale-y-[-1]":""}  ${sort.field !== "id" ? "opacity-0" : ""}`}   src={sortIcon} alt="sort" />
@@ -147,30 +147,38 @@ const Tabs: FC<InputProps> = () => {
                     <div className='w-20'></div>
                     <div className='w-20'></div>
                 </div>
-                {records && records.map((record, index) => (
-                 <div key={index} className='tabl-grid bg-slate-100'>
-                    <div className='tabl-text w-6'>{record.id}</div>
-                    <div className='tabl-text'>{record.applicant_phone}</div>
-                    <div className='tabl-text'>{record.applicant_date?record.applicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
-                    <div className='tabl-text'>{record.status}</div>
-
-                    <div className='tabl-text'>
-                        <Button  text="Re-send"/>
+            )}
+                  
+                {records && records.length > 0 ? (
+                  records.map((record, index) => (
+                    <div key={index} className='tabl-grid bg-slate-100'>
+                      <div className='tabl-text w-6'>{record.id}</div>
+                      <div className='tabl-text'>{record.applicant_phone}</div>
+                      <div className='tabl-text'>
+                        {record.applicant_date ? record.applicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)) : ""}
+                      </div>
+                      <div className='tabl-text'>{record.status}</div>
+                      <div className='tabl-text'>
+                        <Button text="Re-send" />
+                      </div>
+                      <div className='tabl-text'>
+                        <Button btnClick={() => { handleReSend(record.applicant_id) }} text="Complete application" />
+                      </div>
                     </div>
-                    <div className='tabl-text'>
-                        <Button btnClick={()=>{handleReSend(record.applicant_id)}}  text="Complete application"/>
-                    </div>
-                </div>
-                
-                ))}
+                  ))
+                  ) : (
+                  <div className='italic my-3 text-violet'>
+                    No entries
+                  </div>
+                )}
 
             </div>}
           {tabProcessed && 
             <div className='grid gap-3 grid-flow-row max-md:w-max'>
             
             {/* IN PROCESS */}
-
-            <div className='tabl-grid '>
+            {records && records.length > 0 && (
+                  <div className='tabl-grid '>
                     <div className='tabl-text tabl-text-hover'
                      onClick={()=>{handleSort("id")}}>#
                       <Image width={10} height={10} className={`ml-2 ${sort.order === "DESC"?"scale-y-[-1]":""}  ${sort.field !== "id" ? "opacity-0" : ""}`}   src={sortIcon} alt="sort" />
@@ -191,29 +199,38 @@ const Tabs: FC<InputProps> = () => {
                     <div className='w-20'></div>
                     <div className='w-20'></div>
                 </div>
-                {records && records.map((record, index) => (
-                 <div key={index} className='tabl-grid bg-slate-100'>
-                    <div className='tabl-text w-6'>{record.id}</div>
-                    <div className='tabl-text'>{record.applicant_phone}</div>
-                    <div className='tabl-text'>{record.applicant_date?record.applicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
-                    <div className='tabl-text'>{record.status}</div>
-
-                    <div className='tabl-text'>
-                        <Button  text="Re-send"/>
+            )}
+                  
+                {records && records.length > 0 ? (
+                  records.map((record, index) => (
+                    <div key={index} className='tabl-grid bg-slate-100'>
+                      <div className='tabl-text w-6'>{record.id}</div>
+                      <div className='tabl-text'>{record.applicant_phone}</div>
+                      <div className='tabl-text'>
+                        {record.applicant_date
+                          ? record.applicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2))
+                          : ""}
+                      </div>
+                      <div className='tabl-text'>{record.status}</div>
+                      <div className='tabl-text'>
+                        <Button text="Re-send" />
+                      </div>
+                      <div className='tabl-text'>
+                        <Button btnClick={() => { handleReSend(record.applicant_id) }} text="Complete application" />
+                      </div>
                     </div>
-                    <div className='tabl-text'>
-                        <Button btnClick={()=>{handleReSend(record.applicant_id)}}  text="Complete application"/>
-                    </div>
-                </div>
-                
-                ))}
-
+                  ))
+                ) : (
+                  <div className='italic my-3 text-violet'>
+                    No entries
+                  </div>
+                )}
             </div>}
           {tabApproved && 
             <div className='grid gap-3 grid-flow-row max-md:w-max'>
                
                {/* APPROVED */}
-
+               {records && records.length > 0 && (
                 <div className='tabl-grid '>
                     <div className='tabl-text tabl-text-hover'
                      onClick={()=>{handleSort("id")}}>#
@@ -249,29 +266,47 @@ const Tabs: FC<InputProps> = () => {
                      <Image width={10} height={10} className={`ml-2 ${sort.order === "DESC"?"scale-y-[-1]":""}  ${sort.field !== "expiration" ? "opacity-0" : ""}`}   src={sortIcon} alt="sort" />
                      </div>
                     <div className='w-20'></div>
-                </div>
-                {records && records.map((record, index) => (
-                 <div key={index} className='tabl-grid bg-slate-100'>
-                    <div className='tabl-text w-6'>{record.id}</div>
-                    <div className='tabl-text'>{record.name} {record.last_name}</div>
-                    <div className='tabl-text'>{record.student_name}</div>
-                    <div className='tabl-text break-all text-center'>{record.applicant_phone}</div>
-                    <div className='tabl-text'>${record.loan_amount}</div>
-                    <div className='tabl-text'>{record.applicant_date?record.applicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
-                    <div className='tabl-text'>{record.expiration?record.expiration.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
-                    <div className='tabl-text'>
-                        <Button btnClick={()=>{handleReSend(record.applicant_id)}} text="Re-send"/>
+                  </div>
+               )}
+                  
+
+
+                {records && records.length > 0 ? (
+                  records.map((record, index) => (
+                    <div key={index} className='tabl-grid bg-slate-100'>
+                      <div className='tabl-text w-6'>{record.id}</div>
+                      <div className='tabl-text'>{record.name} {record.last_name}</div>
+                      <div className='tabl-text'>{record.student_name}</div>
+                      <div className='tabl-text break-all text-center'>{record.applicant_phone}</div>
+                      <div className='tabl-text'>${record.loan_amount}</div>
+                      <div className='tabl-text'>
+                        {record.applicant_date 
+                          ? record.applicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)) 
+                          : ""}
+                      </div>
+                      <div className='tabl-text'>
+                        {record.expiration 
+                          ? record.expiration.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)) 
+                          : ""}
+                      </div>
+                      <div className='tabl-text'>
+                        <Button btnClick={() => { handleReSend(record.applicant_id) }} text="Re-send" />
+                      </div>
                     </div>
-                </div>
-                
-                ))}
+                  ))
+                ) : (
+                  <div className='italic my-3 text-violet'>
+                    No entries
+                  </div>
+                )}
+
             
             </div>}
           {tabFunded && <div className='grid gap-3 grid-flow-row max-md:w-max'>
             
             {/* FUNDED */}
-
-            <div className='tabl-grid '>
+            {records && records.length > 0 && (
+              <div className='tabl-grid '>
                     <div className='tabl-text tabl-text-hover'
                      onClick={()=>{handleSort("id")}}>#
                       <Image width={10} height={10} className={`ml-2 ${sort.order === "DESC"?"scale-y-[-1]":""}  ${sort.field !== "id" ? "opacity-0" : ""}`}   src={sortIcon} alt="sort" />
@@ -299,23 +334,33 @@ const Tabs: FC<InputProps> = () => {
                      <Image width={10} height={10} className={`ml-2 ${sort.order === "DESC"?"scale-y-[-1]":""}  ${sort.field !== "applicant_date" ? "opacity-0" : ""}`}   src={sortIcon} alt="sort" />
                     </div>
                     <div className='w-20'></div>
-                </div>
-                {records && records.map((record, index) => (
-                 <div key={index} className='tabl-grid bg-slate-100'>
-                    <div className='tabl-text w-6'>{record.id}</div>
-                    <div className='tabl-text'>{record.name} {record.last_name}</div>
-                    <div className='tabl-text'>{record.student_name}</div>
-                    <div className='tabl-text'>{record.applicant_phone}</div>
-                    <div className='tabl-text'>${record.loan_amount}</div>
-                    <div className='tabl-text'>{record.applicant_date?record.applicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)):""}</div>
-                    <div className='tabl-text'>
-                        <Button text="Re-send"/>
+                  </div>
+            )}
+                  
+
+                {records && records.length > 0 ? (
+                  records.map((record, index) => (
+                    <div key={index} className='tabl-grid bg-slate-100'>
+                      <div className='tabl-text w-6'>{record.id}</div>
+                      <div className='tabl-text'>{record.name} {record.last_name}</div>
+                      <div className='tabl-text'>{record.student_name}</div>
+                      <div className='tabl-text'>{record.applicant_phone}</div>
+                      <div className='tabl-text'>${record.loan_amount}</div>
+                      <div className='tabl-text'>
+                        {record.applicant_date 
+                          ? record.applicant_date.split('T')[0].split('-').reverse().join('/').replace(/\d{4}/, (year: string | any[]) => year.slice(-2)) 
+                          : ""}
+                      </div>
+                      <div className='tabl-text'>
+                        <Button text="Re-send" />
+                      </div>
                     </div>
-                </div>
-                
-                ))}
-            
-            
+                  ))
+                ) : (
+                  <div className='italic my-3 text-violet'>
+                    No entries
+                  </div>
+                )}
             </div>}
           </div>
           
